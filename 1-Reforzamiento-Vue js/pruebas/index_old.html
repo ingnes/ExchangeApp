@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <title> Vue app </title>
+  </head>
+  <body>
+    <noscript>
+      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript>
+    <div id="app" v-bind:style="{ background : '#' + color}">
+
+        <div class="container">
+            <!-- ATRIBUTOS DINAMICOS -->
+    
+          <div class="row">            
+
+            <h1 :style="{ color: changePercent > 0 ? 'green' : (changePercent < 0 ? 'red' : 'orange') }">
+              {{ title }}  ({{ changePercent }})
+            </h1>
+    
+
+            <img 
+                @mouseover="toogleShowPrices"
+                @mouseout="toogleShowPrices"
+                :src="src"
+                :alt="alt"           
+                style="width:100px; height: 100px;" >
+    
+          </div>
+    
+          <br>
+    
+          <!-- DIRECTIVA V-ON -->
+    
+          <div class="row">
+              <div class="sm-3 md-3">
+                <button
+                  class="btn btn-success btn-sm" 
+                  @click="clickme">Click
+                </button>
+    
+              </div>
+
+              <div class="sm-9 md-9">                
+    
+              </div> 
+
+              <br>
+              
+              <div class="sm-3 md-3">
+                <button
+                  class="btn btn-success btn-sm" 
+                  @click="toogleShowPrices">{{ showPrices ? 'Ocultar precios' : 'Mostrar precios'  }}
+                </button>
+    
+              </div> 
+          </div>
+    
+          <br>
+    
+            <!-- DIRECTIVA V-FOR -->
+    
+          <div class="row">
+    
+            <table v-show="showPrices" class="table table-bordered">
+              <thead>
+                <tr>
+                  <th colspan="3"> Precios </th>
+                </tr>
+                <tr>
+                  <th width="10%"> Id</th>
+                  <th> Dia</th>
+                  <th> Precio</th>
+                </tr>
+              </thead>
+    
+              <tbody>
+                  <tr v-for="p in pricesWithDays" :key="p.id">
+                      <td> {{ p.id }} </td>
+                      <td> {{ p.day }} </td>
+                      <td  :style="{ color : p.price > price ? 'green' : p.price < price ? 'red' : 'orange' }"> {{ p.price }} </td>
+                  </tr>
+    
+              </tbody>
+    
+        
+            </table> 
+    
+          </div> 
+
+          <br>
+          
+          <!-- DIRECTIVA V-MODEL -->
+          <div class="row">
+             <input type="number" v-model="value" />
+             <span class="alert-danger"> {{ value }}</span>
+          </div>
+
+          <!-- DIRECTIVA V-IF -->
+          <!-- RENDERIZAMOS CONTENIDO EN FORMA CONDICIONAL -->
+          <div class="row">
+             <h1 vbind:class="changePercent > 0 ? 'green : 'orange' ">
+               {{ name }}
+               <span v-if="changePercent>0" >👍</span>
+               <span v-else-if="changePercent<0" >👎</span>
+               <span v-else>🤞</span>
+             </h1>
+          </div>
+
+          <!-- DIRECTIVA V-SHOW -->
+          <!-- SE MANTIENEN LOS ELEMENTOS EN EL DOM, SOLO SE MUESTRA EL Q COINCIDE -->
+          <div class="row">
+            <h1>
+              {{ name }}             
+              <span v-show="changePercent>0" >👍</span>
+               <span v-show="changePercent<0" >👎</span>
+               <span v-show="changePercent == 0">🤞</span>
+            </h1>
+         </div>
+
+        </div>
+
+
+    </div>
+
+    <!-- built files will be auto injected -->
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <!-- Bootstrap JavaScript (Popper.js incluido) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="app.js"></script>    
+
+  </body>
+</html>
